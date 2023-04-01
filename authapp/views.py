@@ -20,7 +20,6 @@ def login(request):
     title = ':: TELLCAP :: Авторизация'
 
     if request.method == 'POST':
-        print('Мы тут')
         login_form = UserLoginForm(data=request.POST)
         if login_form.is_valid():
             username = request.POST['username']
