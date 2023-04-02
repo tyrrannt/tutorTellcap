@@ -26,6 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('', authapp.views.index),
     path('auth/', include('authapp.urls')),
+    path('courses/', include('courseapp.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 

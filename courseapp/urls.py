@@ -6,6 +6,9 @@ app_name = 'courseapp'
 
 urlpatterns = [
     # path('', authapp.views.index, name='index'),
-    # path('login/', authapp.views.login, name='login'),
+    path('list/', courseapp.views.CourseList.as_view(), name='course_list'),
+    path('add/', courseapp.views.CourseAdd.as_view(), name='course_add'),
+    path('<int:pk>/', courseapp.views.CourseItem.as_view(), name='course'),
+    path('update/<int:pk>/', courseapp.views.CourseUpdate.as_view(), name='course_update'),
     # path('logout/', authapp.views.logout, name='logout'),
 ]
