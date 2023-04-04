@@ -64,6 +64,23 @@
                             </div>
                         </li>
                     {% endif %}
+                    {% if user.is_superuser %}
+                        <li class="nav-item dropdown view">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                {{ user }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if user.is_superuser %}
+                                    <a class="dropdown-item" href="/admin/">Admin panel</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Balance</a>
+                                <a class="dropdown-item" href="{% url 'authapp:logout' %}">Exit</a>
+                            </div>
+                        </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

@@ -1,6 +1,22 @@
 {% extends 'authapp/base.html' %}
 {% load static %}
-{% block course %}
+
+{% block slider %}
+{% endblock %}
+
+{% block content %}
+    <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary"
+                                                        href="{% url 'courseapp:course_list' %}">Our Courses</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- courses -->
     <section class="section-sm">
         <div class="container">
@@ -19,24 +35,27 @@
             <!-- course list -->
             <div class="row justify-content-center">
                 {% for item in object_list %}
-                <!-- course item -->
-                <div class="col-lg-4 col-sm-6 mb-5">
-                    <div class="card p-0 border-primary rounded-0 hover-shadow">
-                        <img class="card-img-top rounded-0" src="{% static 'tutor/images/courses/course-1.png' %}"
-                             alt="course thumb">
-                        <div class="card-body">
-                            <ul class="list-inline mb-2">
-                                <li class="list-inline-item"><i class="ti-calendar mr-1 text-color"></i>{{ item.date_created | date:'c' }}</li>
-                                <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
-                            </ul>
-                            <a href="{% url 'courseapp:course' item.pk %}">
-                                <h4 class="card-title">{{ item.name }}</h4>
-                            </a>
-                            <p class="card-text mb-4">{{ item.short_description }}</p>
-                            <a href="{% url 'courseapp:course' item.pk %}" class="btn btn-primary btn-sm">Apply now</a>
+                    <!-- course item -->
+                    <div class="col-lg-4 col-sm-6 mb-5">
+                        <div class="card p-0 border-primary rounded-0 hover-shadow">
+                            <img class="card-img-top rounded-0" src="{% static 'tutor/images/courses/course-1.png' %}"
+                                 alt="course thumb">
+                            <div class="card-body">
+                                <ul class="list-inline mb-2">
+                                    <li class="list-inline-item"><i
+                                            class="ti-calendar mr-1 text-color"></i>{{ item.date_created | date:'c' }}
+                                    </li>
+                                    <li class="list-inline-item"><a class="text-color" href="#">Humanities</a></li>
+                                </ul>
+                                <a href="{% url 'courseapp:course' item.pk %}">
+                                    <h4 class="card-title">{{ item.name }}</h4>
+                                </a>
+                                <p class="card-text mb-4">{{ item.short_description }}</p>
+                                <a href="{% url 'courseapp:course' item.pk %}" class="btn btn-primary btn-sm">Apply
+                                    now</a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endfor %}
             </div>
             <!-- /course list -->
@@ -49,4 +68,10 @@
         </div>
     </section>
     <!-- /courses -->
+{% endblock %}
+
+{% block cta %}
+{% endblock %}
+
+{% block events %}
 {% endblock %}
