@@ -4,8 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    {% block title %}
-    {% endblock %}
+    <title>{{ title }}</title>
 
     <!-- mobile responsive meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'tutor/plugins/aos/aos.css' %}">
     <!-- venobox popup -->
     <link rel="stylesheet" href="{% static 'tutor/plugins/venobox/venobox.css' %}">
+    <link rel="stylesheet" href="{% static 'tutor/plugins/DataTables/css/dataTables.bootstrap4.min.css' %}"/>
 
     <!-- Main Stylesheet -->
     <link href="{% static 'tutor/css/style.css' %}" rel="stylesheet">
@@ -372,15 +372,10 @@
                 <div class="col-sm-5 text-sm-right text-center">
                     <ul class="list-inline">
                         <li class="list-inline-item"><a class="d-inline-block p-2"
-                                                        href="https://www.facebook.com/themefisher"><i
-                                class="ti-facebook text-primary"></i></a></li>
-                        <li class="list-inline-item"><a class="d-inline-block p-2"
-                                                        href="https://www.twitter.com/themefisher"><i
+                                                        href="#"><i
                                 class="ti-twitter-alt text-primary"></i></a></li>
-                        <li class="list-inline-item"><a class="d-inline-block p-2" href="#"><i
-                                class="ti-instagram text-primary"></i></a></li>
                         <li class="list-inline-item"><a class="d-inline-block p-2"
-                                                        href="https://dribbble.com/themefisher"><i
+                                                        href="#"><i
                                 class="ti-dribbble text-primary"></i></a></li>
                     </ul>
                 </div>
@@ -394,6 +389,8 @@
 <script src="{% static 'tutor/plugins/jQuery/jquery.min.js' %}"></script>
 <!-- Bootstrap JS -->
 <script src="{% static 'tutor/plugins/bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static 'tutor/plugins/DataTables/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'tutor/plugins/DataTables/js/dataTables.bootstrap4.min.js' %}"></script>
 <!-- slick slider -->
 <script src="{% static 'tutor/plugins/slick/slick.min.js' %}"></script>
 <!-- aos -->
@@ -402,12 +399,14 @@
 <script src="{% static 'tutor/plugins/venobox/venobox.min.js' %}"></script>
 <!-- mixitup filter -->
 <script src="{% static 'tutor/plugins/mixitup/mixitup.min.js' %}"></script>
-<!-- google map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
-<script src="{% static 'tutor/plugins/google-map/gmap.js' %}"></script>
 
+
+{% block custom_script %}
+{% endblock %}
 <!-- Main Script -->
 <script src="{% static 'tutor/js/script.js' %}"></script>
+
+
 
 </body>
 </html>

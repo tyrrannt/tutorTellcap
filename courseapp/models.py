@@ -1,3 +1,5 @@
+import uuid
+
 from django_ckeditor_5.fields import CKEditor5Field
 from django.db import models
 from django.utils import timezone
@@ -13,7 +15,7 @@ def course_directory_path(instance, filename):
 class BaseModule(models.Model):
     class Meta:
         abstract = True
-
+    uin = models.CharField(verbose_name='УИН', max_length=37, default=uuid.uuid4)
     name = models.CharField(verbose_name='Название', max_length=100)
     logo = models.ImageField(verbose_name='Логотип', upload_to=course_directory_path, blank=True)
     date_created = models.DateField(verbose_name='Дата создания', default=timezone.now)
@@ -43,6 +45,7 @@ class Course(BaseModule):
 
     def __str__(self):
         return self.name
+
 
 
 class RelatedCourse(models.Model):

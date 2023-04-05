@@ -1,0 +1,77 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+
+{% block content %}
+    <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary"
+                                                        href="{% url 'courseapp:course_list' %}">Our Courses</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- courses -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center section-title justify-content-between">
+                        <div class="col-12 col-lg-auto mb-3 mb-lg-0">
+                            <a href="{% url 'courseapp:course_add' %} "
+                               class="btn btn-danger btn-md font-weight-semibold btn-py-2 px-4">+
+                                Добавить курс </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course list -->
+            <div class="row justify-content-center">
+                <table class="table table-striped mb-0" id="datatable-ecommerce-list"
+                       style="min-width: 750px;">
+                    <thead>
+                    <tr>
+                        <th width="10%">Наименование</th>
+                        <th width="10%">Общее время</th>
+                        <th width="20%">Описание</th>
+                        <th width="20%">Цена</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in object_list %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.courses }} {{ item.get_courses_time_display }}</td>
+                            <td>{{ item.short_description }}</td>
+                            <td>{{ item.cost }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /course list -->
+            <!-- mobile see all button -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a href="courses.html" class="btn btn-sm btn-primary-outline d-sm-none d-inline-block">sell all</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /courses -->
+{% endblock %}
+
+{% block custome_script %}
+{% endblock %}
+
+{% block cta %}
+{% endblock %}
+
+{% block events %}
+{% endblock %}

@@ -27,7 +27,7 @@ urlpatterns = [
     path('', authapp.views.index),
     path('auth/', include('authapp.urls')),
     path('courses/', include('courseapp.urls')),
-    path("ckeditor5/", include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),
+    path('ckeditor5/', include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),
 ]
 
 

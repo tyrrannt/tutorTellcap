@@ -1,0 +1,55 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+
+{% block content %}
+    <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary"
+                                                        href="{% url 'courseapp:course_list' %}">Our Courses</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- courses -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="col-12">
+                <form action="#" class="row" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control mb-4" id="id_name" name="name" placeholder="">
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control mb-4" id="id_short_description" name="short_description"
+                               placeholder="">
+                    </div>
+                    <div class="col-12">
+                        <div class="ck-content">
+                            {{ object.content }}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" value="send" class="btn btn-primary">post comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- /courses -->
+{% endblock %}
+
+{% block custome_script %}
+{% endblock %}
+
+{% block cta %}
+{% endblock %}
+
+{% block events %}
+{% endblock %}
