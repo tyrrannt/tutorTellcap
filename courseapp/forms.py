@@ -6,15 +6,26 @@ from courseapp.models import Course
 
 
 class CourseAddForm(forms.ModelForm):
-    content = forms.CharField(widget=CKEditor5Field(), label='')
+
     class Meta:
         model = Course
         fields = ('name', 'logo', 'date_created', 'short_description', 'content')
         widgets = {
-            "text": CKEditor5Widget(
+            "content": CKEditor5Widget(
                 attrs={"class": "django_ckeditor_5"}, config_name="extends"
             )
         }
+
+    def __init__(self, *args, **kwargs):
+        """
+        Обновление стилей формы под Bootstrap
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form form-control', 'autocomplete': 'off'})
+
+        self.fields['content'].widget.attrs.update({'class': 'form-control django_ckeditor_5'})
+        self.fields['content'].required = False
 
 
 class CourseUpdateForm(forms.ModelForm):

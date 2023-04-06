@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from django.urls import reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
 from courseapp.forms import CourseAddForm, CourseUpdateForm
@@ -30,6 +31,13 @@ class CourseSettingsList(ListView):
 class CourseAdd(CreateView):
     model = Course
     form_class = CourseAddForm
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def get_absolute_url(self):
+        return reverse('courseapp:course_list')
+
 
 
 class CourseItem(DetailView):

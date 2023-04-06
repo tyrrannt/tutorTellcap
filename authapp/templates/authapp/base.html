@@ -23,7 +23,9 @@
     <link rel="stylesheet" href="{% static 'tutor/plugins/aos/aos.css' %}">
     <!-- venobox popup -->
     <link rel="stylesheet" href="{% static 'tutor/plugins/venobox/venobox.css' %}">
-    <link rel="stylesheet" href="{% static 'tutor/plugins/DataTables/css/dataTables.bootstrap4.min.css' %}"/>
+
+    <!-- jQuery -->
+    <script src="{% static 'tutor/plugins/jQuery/jquery.min.js' %}"></script>
 
     <!-- Main Stylesheet -->
     <link href="{% static 'tutor/css/style.css' %}" rel="stylesheet">
@@ -115,7 +117,7 @@
 
 {% block slider %}
     <!-- hero slider -->
-    <section class="hero-section overlay bg-cover" data-background="images/banner/banner-1.jpg">
+    <section class="hero-section overlay bg-cover" data-background="{% static 'tutor/images/background/00000.jpg' %}">
         <div class="container">
             <div class="hero-slider">
                 <!-- slider item -->
@@ -385,12 +387,9 @@
 </footer>
 <!-- /footer -->
 
-<!-- jQuery -->
-<script src="{% static 'tutor/plugins/jQuery/jquery.min.js' %}"></script>
 <!-- Bootstrap JS -->
 <script src="{% static 'tutor/plugins/bootstrap/bootstrap.min.js' %}"></script>
-<script src="{% static 'tutor/plugins/DataTables/js/jquery.dataTables.js' %}"></script>
-<script src="{% static 'tutor/plugins/DataTables/js/dataTables.bootstrap4.min.js' %}"></script>
+
 <!-- slick slider -->
 <script src="{% static 'tutor/plugins/slick/slick.min.js' %}"></script>
 <!-- aos -->
@@ -405,7 +404,6 @@
 {% endblock %}
 <!-- Main Script -->
 <script src="{% static 'tutor/js/script.js' %}"></script>
-
 
 
 </body>

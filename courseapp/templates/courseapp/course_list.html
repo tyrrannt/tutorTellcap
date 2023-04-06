@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+    <section class="page-title-section overlay" data-background="{% static 'tutor/images/background/00000.jpg' %}">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <ul class="list-inline mb-2">
                                     <li class="list-inline-item"><i
-                                            class="ti-calendar mr-1 text-color"></i>{{ item.date_created | date:'c' }}
+                                            class="ti-calendar mr-1 text-color"></i> {{ item.date_created | date:'c' }}
                                     </li>
 
                                 </ul>
