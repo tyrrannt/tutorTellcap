@@ -1,9 +1,14 @@
 from django.contrib import auth
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as login_obj
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView
 
-from authapp.forms import UserLoginForm
+from authapp.forms import UserLoginForm, SignUpForm
+from authapp.models import CustomUser
 
 
 # Create your views here.
@@ -37,4 +42,18 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('authapp:index'))
+    return HttpResponseRedirect(reverse('courseapp:course_list'))
+
+def registration(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login_obj(request, user)
+            return redirect('/')
+    else:
+        form = SignUpForm()
+    return render(request, 'authapp/base.html', {'form': form})

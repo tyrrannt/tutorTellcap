@@ -9,7 +9,7 @@ class CourseAddForm(forms.ModelForm):
 
     class Meta:
         model = Course
-        fields = ('name', 'logo', 'date_created', 'short_description', 'content')
+        fields = ('name', 'logo', 'date_created', 'short_description', 'content', 'courses', 'courses_time', 'duration', 'duration_time', 'cost')
         widgets = {
             "content": CKEditor5Widget(
                 attrs={"class": "django_ckeditor_5"}, config_name="extends"
@@ -31,4 +31,4 @@ class CourseAddForm(forms.ModelForm):
 class CourseUpdateForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ('name', 'logo', 'date_created', 'short_description', 'content')
+        fields = ('name', 'logo', 'date_created', 'short_description', 'content', 'courses', 'courses_time', 'duration', 'duration_time', 'cost')

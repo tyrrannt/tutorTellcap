@@ -1,5 +1,5 @@
 import uuid
-
+from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 from django.db import models
 from django.utils import timezone
@@ -45,6 +45,9 @@ class Course(BaseModule):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('courseapp:course_settings_list')
 
 
 

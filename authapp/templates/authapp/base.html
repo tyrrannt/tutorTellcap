@@ -34,113 +34,17 @@
 </head>
 
 <body>
-
+<!-- jQuery -->
+<script src="{% static 'tutor/plugins/jQuery/jquery.min.js' %}"></script>
 
 <!-- header -->
 <header class="fixed-top header">
     <!-- top header -->
-{#    {% include 'authapp/top_header.html' %}#}
-    <div class="top-header py-2 bg-white">
-    <div class="container">
-        <div class="row no-gutters">
-            <div class="col-lg-4 text-center text-lg-left">
-                <a class="text-color mr-3" href="callto:+74955891356"><strong>Call</strong> +7 (495) 589-13-56</a>
-                <ul class="list-inline d-inline">
-                    <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i
-                            class="ti-twitter-alt"></i></a></li>
-                    <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i
-                            class="ti-linkedin"></i></a></li>
-                </ul>
-            </div>
-            <div class="col-lg-8 text-center text-lg-right">
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a
-                            class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-                            href="#">Notice</a></li>
-                    <li class="list-inline-item"><a
-                            class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-                            href="#">Research</a></li>
-                    <li class="list-inline-item"><a
-                            class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-                            href="#">Scholarship</a></li>
-                    {% if not user.is_authenticated %}
-                        <li class="list-inline-item"><a
-                                class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-                                href="#" data-toggle="modal" data-target="#loginModal">Login</a>
-                        </li>
-                        <li class="list-inline-item"><a
-                                class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
-                                href="#" data-toggle="modal" data-target="#signupModal">Register</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-    <!-- navbar -->
-{#    {% include 'authapp/navbar.html' %}#}
-<div class="navigation w-100">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light p-0">
-            <a class="navbar-brand" href="/"><img src="{% static 'tutor/images/logo/logo.png' %}" alt="logo"
-                                                  style="width: 96px"></a>
-            <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
-                    aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    {% include 'authapp/top_header.html' %}
 
-            <div class="collapse navbar-collapse" id="navigation">
-                <ul class="navbar-nav ml-auto text-center">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item @@courses">
-                        <a class="nav-link" href="{% url 'courseapp:course_list' %}">COURSES</a>
-                    </li>
-                    <li class="nav-item @@events">
-                        <a class="nav-link" href="#">EVENTS</a>
-                    </li>
-                    <li class="nav-item @@contact">
-                        <a class="nav-link" href="#">CONTACT</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item dropdown view">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                {{ user }}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                {% if user.is_superuser %}
-                                    <a class="dropdown-item" href="/admin/">Admin panel</a>
-                                {% endif %}
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Balance</a>
-                                <a class="dropdown-item" href="{% url 'authapp:logout' %}">Exit</a>
-                            </div>
-                        </li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li class="nav-item dropdown view">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                Настройки
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Users</a>
-                                <a class="dropdown-item" href="{% url 'courseapp:course_settings_list' %}">Course</a>
-                                <a class="dropdown-item" href="#">Relation</a>
-                                <a class="dropdown-item" href="#">Unit</a>
-                            </div>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    </div>
-</div>
+    <!-- navbar -->
+    {% include 'authapp/navbar.html' %}
+
 </header>
 <!-- /header -->
 <!-- Modal -->
@@ -155,21 +59,22 @@
             </div>
             <div class="modal-body">
                 <div class="login">
-                    <form action="#" class="row">
+                    <form action="{% url 'authapp:register' %}" class="row" method="post">
+                        {% csrf_token %}
                         <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupPhone" name="signupPhone"
-                                   placeholder="Phone">
+                            <input type="text" class="form-control mb-3" id="id_username" name="username"
+                                   placeholder="Nickname">
                         </div>
                         <div class="col-12">
-                            <input type="text" class="form-control mb-3" id="signupName" name="signupName"
-                                   placeholder="Name">
-                        </div>
-                        <div class="col-12">
-                            <input type="email" class="form-control mb-3" id="signupEmail" name="signupEmail"
+                            <input type="email" class="form-control mb-3" id="id_email" name="email"
                                    placeholder="Email">
                         </div>
                         <div class="col-12">
-                            <input type="password" class="form-control mb-3" id="signupPassword" name="signupPassword"
+                            <input type="password" class="form-control mb-3" id="id_password1" name="password1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="col-12">
+                            <input type="password" class="form-control mb-3" id="id_password2" name="password2"
                                    placeholder="Password">
                         </div>
                         <div class="col-12">
@@ -212,6 +117,24 @@
 </div>
 
 {% block slider %}
+    <div id="myModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Подтверждение</h5>
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <p>Вы хотите сохранить изменения в этом документе перед закрытием?</p>
+                    <p class="text-secondary"><small>Если вы не сохраните, ваши изменения будут потеряны.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- hero slider -->
     <section class="hero-section overlay bg-cover" data-background="{% static 'tutor/images/background/00000.jpg' %}">
         <div class="container">
@@ -219,63 +142,36 @@
                 <!-- slider item -->
                 <div class="hero-slider-item">
                     <div class="row">
-                        <div class="col-md-8">
-                            <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5"
-                                data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Your bright
-                                future
-                                is our mission</h1>
-                            <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5"
-                               data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">Lorem ipsum dolor
-                                sit
-                                amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor
-                                incididunt ut labore et
-                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
-                            <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutRight"
-                               data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft"
-                               data-delay-in=".7">Apply
-                                now</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- slider item -->
-                <div class="hero-slider-item">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h1 class="text-white" data-animation-out="fadeOutUp" data-delay-out="5"
-                                data-duration-in=".3"
-                                data-animation-in="fadeInDown" data-delay-in=".1">Your bright future is our mission</h1>
-                            <p class="text-muted mb-4" data-animation-out="fadeOutUp" data-delay-out="5"
-                               data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".4">Lorem ipsum dolor
-                                sit
-                                amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor
-                                incididunt ut labore et
-                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
-                            <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutUp"
-                               data-delay-out="5"
-                               data-duration-in=".3" data-animation-in="fadeInDown" data-delay-in=".7">Apply now</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- slider item -->
-                <div class="hero-slider-item">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h1 class="text-white" data-animation-out="fadeOutDown" data-delay-out="5"
-                                data-duration-in=".3"
-                                data-animation-in="fadeInUp" data-delay-in=".1">Your bright future is our mission</h1>
-                            <p class="text-muted mb-4" data-animation-out="fadeOutDown" data-delay-out="5"
-                               data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".4">Lorem ipsum dolor
-                                sit
-                                amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor
-                                incididunt ut labore et
-                                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
-                            <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutDown"
-                               data-delay-out="5" data-duration-in=".3" data-animation-in="zoomIn" data-delay-in=".7">Apply
-                                now</a>
-                        </div>
+                        {% if form.errors %}
+                            <div class="col-sm-12">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ field.label }}</strong>: {{ error|escape }}
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        <strong>{{ field.label }}</strong>: {{ error|escape }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="col-md-8">
+                                <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5"
+                                    data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Your bright
+                                    future is our mission</h1>
+                                <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5"
+                                   data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">Lorem ipsum
+                                    dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
+                                <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutRight"
+                                   data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft"
+                                   data-delay-in=".7">Apply
+                                    now</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -386,7 +282,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-7 text-sm-left text-center">
-                    <p class="mb-0">Copyright {% now "Y" %} © <a href="https://tellcap.ru">TELLCAP</a>. All Rights Reserved.
+                    <p class="mb-0">Copyright {% now "Y" %} © <a href="https://tellcap.ru">TELLCAP</a>. All Rights
+                        Reserved.
                     </p>
                 </div>
                 <div class="col-sm-5 text-sm-right text-center">
@@ -404,8 +301,7 @@
     </div>
 </footer>
 <!-- /footer -->
-<!-- jQuery -->
-<script src="{% static 'tutor/plugins/jQuery/jquery.min.js' %}"></script>
+
 <!-- Bootstrap JS -->
 <script src="{% static 'tutor/plugins/bootstrap/bootstrap.min.js' %}"></script>
 <!-- slick slider -->
@@ -421,6 +317,7 @@
 <script src="{% static 'tutor/js/script.js' %}"></script>
 
 {% block custom_script %}
+
 {% endblock %}
 
 </body>
