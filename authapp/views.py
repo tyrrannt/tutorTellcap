@@ -37,7 +37,7 @@ def login(request):
     else:
         login_form = UserLoginForm()
     content = {'title': title, 'login_form': login_form}
-    return render(request, 'authapp/login.html', content)
+    return redirect('/')
 
 
 def logout(request):
