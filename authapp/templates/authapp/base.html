@@ -24,9 +24,6 @@
     <!-- venobox popup -->
     <link rel="stylesheet" href="{% static 'tutor/plugins/venobox/venobox.css' %}">
 
-    <!-- jQuery -->
-    <script src="{% static 'tutor/plugins/jQuery/jquery.min.js' %}"></script>
-
     <!-- Main Stylesheet -->
     <link href="{% static 'tutor/css/style.css' %}" rel="stylesheet">
 
@@ -42,9 +39,108 @@
 <!-- header -->
 <header class="fixed-top header">
     <!-- top header -->
-    {% include 'authapp/top_header.html' %}
+{#    {% include 'authapp/top_header.html' %}#}
+    <div class="top-header py-2 bg-white">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-lg-4 text-center text-lg-left">
+                <a class="text-color mr-3" href="callto:+74955891356"><strong>Call</strong> +7 (495) 589-13-56</a>
+                <ul class="list-inline d-inline">
+                    <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i
+                            class="ti-twitter-alt"></i></a></li>
+                    <li class="list-inline-item mx-0"><a class="d-inline-block p-2 text-color" href="#"><i
+                            class="ti-linkedin"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a
+                            class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                            href="#">Notice</a></li>
+                    <li class="list-inline-item"><a
+                            class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                            href="#">Research</a></li>
+                    <li class="list-inline-item"><a
+                            class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                            href="#">Scholarship</a></li>
+                    {% if not user.is_authenticated %}
+                        <li class="list-inline-item"><a
+                                class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                href="#" data-toggle="modal" data-target="#loginModal">Login</a>
+                        </li>
+                        <li class="list-inline-item"><a
+                                class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                                href="#" data-toggle="modal" data-target="#signupModal">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- navbar -->
-    {% include 'authapp/navbar.html' %}
+{#    {% include 'authapp/navbar.html' %}#}
+<div class="navigation w-100">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light p-0">
+            <a class="navbar-brand" href="/"><img src="{% static 'tutor/images/logo/logo.png' %}" alt="logo"
+                                                  style="width: 96px"></a>
+            <button class="navbar-toggler rounded-0" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav ml-auto text-center">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item @@courses">
+                        <a class="nav-link" href="{% url 'courseapp:course_list' %}">COURSES</a>
+                    </li>
+                    <li class="nav-item @@events">
+                        <a class="nav-link" href="#">EVENTS</a>
+                    </li>
+                    <li class="nav-item @@contact">
+                        <a class="nav-link" href="#">CONTACT</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown view">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                {{ user }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                {% if user.is_superuser %}
+                                    <a class="dropdown-item" href="/admin/">Admin panel</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="#">Balance</a>
+                                <a class="dropdown-item" href="{% url 'authapp:logout' %}">Exit</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li class="nav-item dropdown view">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Настройки
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Users</a>
+                                <a class="dropdown-item" href="{% url 'courseapp:course_settings_list' %}">Course</a>
+                                <a class="dropdown-item" href="#">Relation</a>
+                                <a class="dropdown-item" href="#">Unit</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
 </header>
 <!-- /header -->
 <!-- Modal -->
@@ -199,7 +295,7 @@
                 <div class="col-12 text-center">
                     <h6 class="text-white font-secondary mb-0">Click to Join the Advance Workshop</h6>
                     <h2 class="section-title text-white">Training In Advannce Networking</h2>
-                    <a href="contact.html" class="btn btn-secondary">join now</a>
+                    <a href="#" class="btn btn-secondary">join now</a>
                 </div>
             </div>
         </div>
@@ -217,7 +313,7 @@
                         <h2 class="mb-0 text-nowrap mr-3">Upcoming Events</h2>
                         <div class="border-top w-100 border-primary d-none d-sm-block"></div>
                         <div>
-                            <a href="events.html" class="btn btn-sm btn-primary-outline ml-sm-3 d-none d-sm-block">see
+                            <a href="#" class="btn btn-sm btn-primary-outline ml-sm-3 d-none d-sm-block">see
                                 all</a>
                         </div>
                     </div>
@@ -235,7 +331,7 @@
                         <div class="card-body">
                             <!-- location -->
                             <p><i class="ti-location-pin text-primary mr-2"></i>Russia, Moscow</p>
-                            <a href="event-single.html"><h4 class="card-title">Development of database models</h4>
+                            <a href="#"><h4 class="card-title">Development of database models</h4>
                             </a>
                         </div>
                     </div>
@@ -251,7 +347,7 @@
                         <div class="card-body">
                             <!-- location -->
                             <p><i class="ti-location-pin text-primary mr-2"></i>Russia, Moscow</p>
-                            <a href="event-single.html"><h4 class="card-title">Filling in the database.</h4>
+                            <a href="#"><h4 class="card-title">Filling in the database.</h4>
                             </a>
                         </div>
                     </div>
@@ -276,7 +372,7 @@
             <!-- mobile see all button -->
             <div class="row">
                 <div class="col-12 text-center">
-                    <a href="course.html" class="btn btn-sm btn-primary-outline d-sm-none d-inline-block">sell all</a>
+                    <a href="#" class="btn btn-sm btn-primary-outline d-sm-none d-inline-block">sell all</a>
                 </div>
             </div>
         </div>
@@ -285,90 +381,12 @@
 {% endblock %}
 <!-- footer -->
 <footer>
-    <!-- newsletter -->
-    {#  <div class="newsletter">#}
-    {#    <div class="container">#}
-    {#      <div class="row">#}
-    {#        <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">#}
-    {#          <h3 class="text-white">Subscribe Now</h3>#}
-    {#          <form action="#">#}
-    {#            <div class="input-wrapper">#}
-    {#              <input type="email" class="form-control border-0" id="newsletter" name="newsletter" placeholder="Enter Your Email...">#}
-    {#              <button type="submit" value="send" class="btn btn-primary">Join</button>#}
-    {#            </div>#}
-    {#          </form>#}
-    {#        </div>#}
-    {#      </div>#}
-    {#    </div>#}
-    {#  </div>#}
-    <!-- footer content -->
-    {#  <div class="footer bg-footer section border-bottom">#}
-    {#    <div class="container">#}
-    {#      <div class="row">#}
-    {#        <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">#}
-    {#          <!-- logo -->#}
-    {#          <a class="logo-footer" href="index.html"><img class="img-fluid mb-4" src="images/logo.png" alt="logo"></a>#}
-    {#          <ul class="list-unstyled">#}
-    {#            <li class="mb-2">23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA</li>#}
-    {#            <li class="mb-2">+1 (2) 345 6789</li>#}
-    {#            <li class="mb-2">+1 (2) 345 6789</li>#}
-    {#            <li class="mb-2">contact@yourdomain.com</li>#}
-    {#          </ul>#}
-    {#        </div>#}
-    {#        <!-- company -->#}
-    {#        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">#}
-    {#          <h4 class="text-white mb-5">COMPANY</h4>#}
-    {#          <ul class="list-unstyled">#}
-    {#            <li class="mb-3"><a class="text-color" href="about.html">About Us</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="teacher.html">Our Teacher</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="contact.html">Contact</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="blog.html">Blog</a></li>#}
-    {#          </ul>#}
-    {#        </div>#}
-    {#        <!-- links -->#}
-    {#        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">#}
-    {#          <h4 class="text-white mb-5">LINKS</h4>#}
-    {#          <ul class="list-unstyled">#}
-    {#            <li class="mb-3"><a class="text-color" href="courses.html">Courses</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="event.html">Events</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="gallary.html">Gallary</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="faqs.html">FAQs</a></li>#}
-    {#          </ul>#}
-    {#        </div>#}
-    {#        <!-- support -->#}
-    {#        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">#}
-    {#          <h4 class="text-white mb-5">SUPPORT</h4>#}
-    {#          <ul class="list-unstyled">#}
-    {#            <li class="mb-3"><a class="text-color" href="#">Forums</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="#">Documentation</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="#">Language</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="#">Release Status</a></li>#}
-    {#          </ul>#}
-    {#        </div>#}
-    {#        <!-- support -->#}
-    {#        <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">#}
-    {#          <h4 class="text-white mb-5">RECOMMEND</h4>#}
-    {#          <ul class="list-unstyled">#}
-    {#            <li class="mb-3"><a class="text-color" href="#">WordPress</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="#">LearnPress</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="#">WooCommerce</a></li>#}
-    {#            <li class="mb-3"><a class="text-color" href="#">bbPress</a></li>#}
-    {#          </ul>#}
-    {#        </div>#}
-    {#      </div>#}
-    {#    </div>#}
-    {#  </div>#}
     <!-- copyright -->
     <div class="copyright py-4 bg-footer">
         <div class="container">
             <div class="row">
                 <div class="col-sm-7 text-sm-left text-center">
-                    <p class="mb-0">Copyright
-                        <script>
-                            var CurrentYear = new Date().getFullYear()
-                            document.write(CurrentYear)
-                        </script>
-                        © <a href="https://tellcap.ru">TELLCAP</a>. All Rights Reserved.
+                    <p class="mb-0">Copyright {% now "Y" %} © <a href="https://tellcap.ru">TELLCAP</a>. All Rights Reserved.
                     </p>
                 </div>
                 <div class="col-sm-5 text-sm-right text-center">
@@ -386,10 +404,10 @@
     </div>
 </footer>
 <!-- /footer -->
-
+<!-- jQuery -->
+<script src="{% static 'tutor/plugins/jQuery/jquery.min.js' %}"></script>
 <!-- Bootstrap JS -->
 <script src="{% static 'tutor/plugins/bootstrap/bootstrap.min.js' %}"></script>
-
 <!-- slick slider -->
 <script src="{% static 'tutor/plugins/slick/slick.min.js' %}"></script>
 <!-- aos -->
@@ -399,12 +417,11 @@
 <!-- mixitup filter -->
 <script src="{% static 'tutor/plugins/mixitup/mixitup.min.js' %}"></script>
 
-
-{% block custom_script %}
-{% endblock %}
 <!-- Main Script -->
 <script src="{% static 'tutor/js/script.js' %}"></script>
 
+{% block custom_script %}
+{% endblock %}
 
 </body>
 </html>
