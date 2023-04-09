@@ -1,4 +1,7 @@
 import uuid
+
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 from django.db import models
@@ -10,6 +13,20 @@ from django.utils import timezone
 def course_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return f'course/{filename}'
+
+
+class GoogleForm(models.Model):
+    class Meta:
+        verbose_name = 'Google форма'
+        verbose_name_plural = 'Google формы'
+
+    name = models.CharField(verbose_name='Название', max_length=500, default='GoogleForm')
+    url = models.URLField(verbose_name='Ссылка')
+    width = models.CharField(verbose_name='Ширина в процентах', max_length=3, default='100')
+    height = models.CharField(verbose_name='Высота в процентах', max_length=3, default='100')
+
+    def __str__(self):
+        return self.name
 
 
 class BaseModule(models.Model):
@@ -67,3 +84,24 @@ class CourseModule(BaseModule):
         verbose_name_plural = 'Модули'
 
     parent_course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.SET_NULL, null=True, blank=True)
+
+
+class SiteEvents(models.Model):
+    class Meta:
+        verbose_name = 'Событие'
+        verbose_name_plural = 'События'
+
+    title = models.CharField(verbose_name='Заголовок', max_length=100, default='')
+    description = models.CharField(verbose_name='Описание', max_length=350, default='')
+    start_time = models.DateField(verbose_name='Начало события', default=timezone.now)
+    end_time = models.DateField(verbose_name='Окончание события', default=timezone.now)
+    content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    content_object = GenericForeignKey('content_type', 'object_id')
+    hero_slider = models.BooleanField(verbose_name='Отображать на слайдере', default=False)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('courseapp:course_settings_list')

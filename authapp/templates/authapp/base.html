@@ -138,43 +138,49 @@
     <!-- hero slider -->
     <section class="hero-section overlay bg-cover" data-background="{% static 'tutor/images/background/00000.jpg' %}">
         <div class="container">
-            <div class="hero-slider">
-                <!-- slider item -->
+
+            {% if form.errors %}
+                <div class="col-sm-12">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ field.label }}</strong>: {{ error|escape }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ field.label }}</strong>: {{ error|escape }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+
                 <div class="hero-slider-item">
-                    <div class="row">
-                        {% if form.errors %}
-                            <div class="col-sm-12">
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <div class="alert alert-danger">
-                                            <strong>{{ field.label }}</strong>: {{ error|escape }}
-                                        </div>
-                                    {% endfor %}
-                                {% endfor %}
-                                {% for error in form.non_field_errors %}
-                                    <div class="alert alert-danger">
-                                        <strong>{{ field.label }}</strong>: {{ error|escape }}
+                    <div class="hero-slider">
+                        {% for item in all_events %}
+                            {% if item.hero_slider %}
+                                <!-- slider item -->
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5"
+                                            data-duration-in=".3" data-animation-in="fadeInLeft"
+                                            data-delay-in=".1">{{ item.title }}</h1>
+                                        <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5"
+                                           data-duration-in=".3" data-animation-in="fadeInLeft"
+                                           data-delay-in=".4">{{ item.description }}</p>
+
+                                        <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutRight"
+                                           data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft"
+                                           data-delay-in=".7">Apply now {{ item.content_type }}</a>
                                     </div>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="col-md-8">
-                                <h1 class="text-white" data-animation-out="fadeOutRight" data-delay-out="5"
-                                    data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".1">Your bright
-                                    future is our mission</h1>
-                                <p class="text-muted mb-4" data-animation-out="fadeOutRight" data-delay-out="5"
-                                   data-duration-in=".3" data-animation-in="fadeInLeft" data-delay-in=".4">Lorem ipsum
-                                    dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exer</p>
-                                <a href="contact.html" class="btn btn-primary" data-animation-out="fadeOutRight"
-                                   data-delay-out="5" data-duration-in=".3" data-animation-in="fadeInLeft"
-                                   data-delay-in=".7">Apply
-                                    now</a>
-                            </div>
-                        {% endif %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-            </div>
+
+            {% endif %}
         </div>
     </section>
     <!-- /hero slider -->
@@ -216,54 +222,24 @@
                 </div>
             </div>
             <div class="row justify-content-center">
+                {% for item in all_events %}
                 <!-- event -->
                 <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
                     <div class="card border-0 rounded-0 hover-shadow">
                         <div class="card-img position-relative">
                             <img class="card-img-top rounded-0" src="{% static 'tutor/images/events/event-1.png' %}"
                                  alt="event thumb">
-                            <div class="card-date"><span>18</span><br>April</div>
+                            <div class="card-date"><span>{{ item.start_time | date:'d' }}</span><br>{{ item.start_time | date:'M' }}</div>
                         </div>
                         <div class="card-body">
                             <!-- location -->
                             <p><i class="ti-location-pin text-primary mr-2"></i>Russia, Moscow</p>
-                            <a href="#"><h4 class="card-title">Development of database models</h4>
+                            <a href="#"><h4 class="card-title">{{ item.title }}</h4>
                             </a>
                         </div>
                     </div>
                 </div>
-                <!-- event -->
-                <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-                    <div class="card border-0 rounded-0 hover-shadow">
-                        <div class="card-img position-relative">
-                            <img class="card-img-top rounded-0" src="{% static 'tutor/images/events/event-1.png' %}"
-                                 alt="event thumb">
-                            <div class="card-date"><span>21</span><br>April</div>
-                        </div>
-                        <div class="card-body">
-                            <!-- location -->
-                            <p><i class="ti-location-pin text-primary mr-2"></i>Russia, Moscow</p>
-                            <a href="#"><h4 class="card-title">Filling in the database.</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- event -->
-                <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-                    <div class="card border-0 rounded-0 hover-shadow">
-                        <div class="card-img position-relative">
-                            <img class="card-img-top rounded-0" src="{% static 'tutor/images/events/event-1.png' %}"
-                                 alt="event thumb">
-                            <div class="card-date"><span>1</span><br>May</div>
-                        </div>
-                        <div class="card-body">
-                            <!-- location -->
-                            <p><i class="ti-location-pin text-primary mr-2"></i>Russia, Moscow</p>
-                            <a href="#"><h4 class="card-title">Website Launch!</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
             <!-- mobile see all button -->
             <div class="row">

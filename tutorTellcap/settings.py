@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'courseapp.context_processor.get_events',
             ],
         },
     },
@@ -185,8 +186,9 @@ CKEDITOR_5_CONFIGS = {
                       'code', 'subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
                       'bulletedList', 'numberedList', 'todoList', '|', 'blockQuote', 'imageUpload', '|',
                       'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                      'insertTable', ],
-            'shouldNotGroupWhenFull': 'false'
+                      'insertTable', 'iframeEmbed', ],
+            'shouldNotGroupWhenFull': 'false',
+            'extraAllowedContent': 'iframe[*]',
         },
         'image': {
             'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',

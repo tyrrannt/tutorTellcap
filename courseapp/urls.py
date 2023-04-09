@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:pk>/', courseapp.views.CourseItem.as_view(), name='course'),
     path('update/<int:pk>/', courseapp.views.CourseUpdate.as_view(), name='course_update'),
     # path('logout/', authapp.views.logout, name='logout'),
+    path('events-list/', courseapp.views.SiteEventsList.as_view(), name='events_list'),
 ]
