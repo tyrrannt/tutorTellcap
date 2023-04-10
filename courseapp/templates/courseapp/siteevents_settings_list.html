@@ -1,0 +1,87 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block slider %}
+{% endblock %}
+
+{% block content %}
+    <section class="page-title-section overlay" data-background="{% static 'tutor/images/background/00000.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-inline custom-breadcrumb">
+                        <li class="list-inline-item"><a class="h2 text-primary font-secondary"
+                                                        href="{% url 'courseapp:course_list' %}">Our Courses</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- courses -->
+    <section class="section-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center section-title justify-content-between">
+                        <div class="col-12 col-lg-auto mb-3 mb-lg-0">
+                            <a href="{% url 'courseapp:course_add' %} "
+                               class="btn btn-danger btn-md font-weight-semibold btn-py-2 px-4">+
+                                Добавить событие </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- course list -->
+            <div class="row justify-content-center">
+                <table class="table table-striped mb-0" id="datatable-ecommerce-list"
+                       style="min-width: 750px;">
+                    <thead>
+                    <tr>
+                        <th width="20%">Наименование</th>
+                        <th width="30%">Описание</th>
+                        <th width="15%">Старт</th>
+                        <th width="15%">Стоп</th>
+                        <th width="20%">Связь</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in object_list %}
+                        <tr class="clickable-row" data-href="{% url 'courseapp:events' item.pk %}">
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.start_time }}</td>
+                            <td>{{ item.end_time }}</td>
+                            <td>{{ item.content_object }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /course list -->
+            <!-- mobile see all button -->
+            <div class="row">
+                <div class="col-12 text-center">
+                    <a href="#" class="btn btn-sm btn-primary-outline d-sm-none d-inline-block">sell all</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /courses -->
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block custome_script %}
+
+{% endblock %}
+
+{% block cta %}
+{% endblock %}
+
+{% block events %}
+{% endblock %}

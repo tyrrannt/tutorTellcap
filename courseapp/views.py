@@ -62,10 +62,8 @@ class CourseItem(DetailView):
         course_object = self.get_object()
         context['title'] = course_object
         content_text = course_object.content
-        print(content_text)
         content_text = google_form(r'(GoogleForm\d+)', get_google_form, content_text)
         context['replase_content'] = content_text
-        print(content_text)
         try:
             related_course = RelatedCourse.objects.get(from_course=course_object)
             context['related_course'] = related_course.to_course.all()
@@ -81,6 +79,9 @@ class CourseUpdate(UpdateView):
     form_class = CourseUpdateForm
 
 
-class SiteEventsList(ListView):
+class SiteEventsSettingsList(ListView):
     model = SiteEvents
+    template_name = 'courseapp/siteevents_settings_list.html'
 
+class SiteEventsItem(DetailView):
+    model = SiteEvents

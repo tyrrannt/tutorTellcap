@@ -1,11 +1,13 @@
 import uuid
-
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
 from django.db import models
 from django.utils import timezone
+
 
 
 # Create your models here.
@@ -13,6 +15,10 @@ from django.utils import timezone
 def course_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return f'course/{filename}'
+
+def events_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
+    return f'events/{filename}'
 
 
 class GoogleForm(models.Model):
@@ -93,9 +99,12 @@ class SiteEvents(models.Model):
 
     title = models.CharField(verbose_name='Заголовок', max_length=100, default='')
     description = models.CharField(verbose_name='Описание', max_length=350, default='')
+    location = models.CharField(verbose_name='Место проведения', max_length=100, default='')
+    logo = models.ImageField(verbose_name='Логотип', upload_to=events_directory_path, blank=True)
     start_time = models.DateField(verbose_name='Начало события', default=timezone.now)
     end_time = models.DateField(verbose_name='Окончание события', default=timezone.now)
     content_type = models.ForeignKey(ContentType, on_delete=models.SET_NULL, null=True, blank=True)
+    url = models.CharField(verbose_name='Ссылка', max_length=300, null=True, blank=True)
     object_id = models.PositiveIntegerField(null=True, blank=True)
     content_object = GenericForeignKey('content_type', 'object_id')
     hero_slider = models.BooleanField(verbose_name='Отображать на слайдере', default=False)
@@ -104,4 +113,16 @@ class SiteEvents(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('courseapp:course_settings_list')
+        return reverse('courseapp:events_list')
+
+@receiver(post_save, sender=SiteEvents)
+def change_url(sender, instance, **kwargs):
+    try:
+        # Формируем URL
+        if instance.content_type.model == 'course':
+            if instance.url != f'courses/{instance.object_id}/':
+                instance.url = f'courses/{instance.object_id}/'
+                instance.save()
+    except Exception as _ex:
+        pass
+        #logger.error(f'Ошибка при переименовании файла {_ex}')
