@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 
-from courseapp.forms import CourseAddForm, CourseUpdateForm
+from courseapp.forms import CourseAddForm, CourseUpdateForm, SiteEventsAddForm, SiteEventsUpdateForm
 from courseapp.models import Course, RelatedCourse, GoogleForm, SiteEvents
 from re import sub as google_form
 
@@ -85,3 +85,13 @@ class SiteEventsSettingsList(ListView):
 
 class SiteEventsItem(DetailView):
     model = SiteEvents
+
+
+class SiteEventsAdd(CreateView):
+    model = SiteEvents
+    form_class = SiteEventsAddForm
+
+
+class SiteEventsUpdate(UpdateView):
+    model = SiteEvents
+    form_class = SiteEventsUpdateForm

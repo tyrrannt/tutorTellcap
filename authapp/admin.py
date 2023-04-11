@@ -19,7 +19,7 @@ class CustomUserAdmin(UserAdmin):
             'Профиль',
             {
                 'fields': (
-                    'surname', 'superintendent', 'personal_code',
+                    'surname', 'superintendent', 'personal_code', 'avatar',
                 ),
             },
         ),

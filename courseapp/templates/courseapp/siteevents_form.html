@@ -88,62 +88,30 @@
                 </div>
             </div>
             <!-- event speakers -->
-            {% if object.speaker.count > 0 %}
             <div class="row">
                 <div class="col-12">
                     <h3 class="mb-4">Event Speakers</h3>
                 </div>
                 <!-- speakers -->
-                {% for unit in object.speaker.all %}
                 <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
                     <div class="media">
-                        <img class="mr-3 img-fluid" src="{% if unit.avatar %}{{ unit.avatar.url }}{% endif %}" alt="speaker">
+                        <img class="mr-3 img-fluid" src="images/event-speakers/speaker-1.jpg" alt="speaker">
                         <div class="media-body">
-                            <h4 class="mt-0">{{ unit }}</h4>
+                            <h4 class="mt-0">Jack Mastio</h4>
                             Teacher
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+
                 <!-- border -->
                 <div class="col-12 mt-4 order-4">
                     <div class="border-bottom border-primary"></div>
                 </div>
             </div>
-            {% endif %}
         </div>
     </section>
     <!-- /event single -->
 
-    <!-- more event -->
-    <section class="section pt-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title">More Events</h2>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <!-- event -->
-                {% for item in all_events %}
-                <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
-                    <div class="card border-0 rounded-0 hover-shadow">
-                        <div class="card-img position-relative">
-                            <img class="card-img-top rounded-0" src="{% if item.logo %}{{ item.logo.url }}{% endif %}" alt="event thumb">
-                            <div class="card-date"><span>{{ item.start_time | date:'d' }}</span><br>{{ item.start_time | date:'M' }}</div>
-                        </div>
-                        <div class="card-body">
-                            <!-- location -->
-                            <p><i class="ti-location-pin text-primary mr-2"></i>{{ item.location }}</p>
-                            <a href="{{ item.url }}"><h4 class="card-title">{{ item.title }}</h4></a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-    <!-- /more event -->
 {% endblock %}
 
 {% block cta %}

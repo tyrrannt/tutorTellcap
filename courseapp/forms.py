@@ -2,7 +2,7 @@ from django import forms
 from django_ckeditor_5.fields import CKEditor5Field
 from django_ckeditor_5.widgets import CKEditor5Widget
 
-from courseapp.models import Course
+from courseapp.models import Course, SiteEvents
 
 
 class CourseAddForm(forms.ModelForm):
@@ -32,3 +32,18 @@ class CourseUpdateForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ('name', 'logo', 'date_created', 'short_description', 'content', 'courses', 'courses_time', 'duration', 'duration_time', 'cost')
+
+
+
+class SiteEventsAddForm(forms.ModelForm):
+
+    class Meta:
+        model = SiteEvents
+        fields = '__all__'
+
+
+class SiteEventsUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = SiteEvents
+        fields = '__all__'

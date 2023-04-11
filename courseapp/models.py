@@ -8,6 +8,7 @@ from django_ckeditor_5.fields import CKEditor5Field
 from django.db import models
 from django.utils import timezone
 
+from authapp.models import CustomUser
 
 
 # Create your models here.
@@ -108,6 +109,7 @@ class SiteEvents(models.Model):
     object_id = models.PositiveIntegerField(null=True, blank=True)
     content_object = GenericForeignKey('content_type', 'object_id')
     hero_slider = models.BooleanField(verbose_name='Отображать на слайдере', default=False)
+    speaker = models.ManyToManyField(CustomUser)
 
     def __str__(self):
         return self.title
@@ -120,8 +122,8 @@ def change_url(sender, instance, **kwargs):
     try:
         # Формируем URL
         if instance.content_type.model == 'course':
-            if instance.url != f'courses/{instance.object_id}/':
-                instance.url = f'courses/{instance.object_id}/'
+            if instance.url != f'/courses/{instance.object_id}/':
+                instance.url = f'/courses/{instance.object_id}/'
                 instance.save()
     except Exception as _ex:
         pass
