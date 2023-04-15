@@ -5,9 +5,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView, UpdateView
 
-from authapp.forms import UserLoginForm, SignUpForm
+from authapp.forms import UserLoginForm, SignUpForm, CustomUserUpdateForm
 from authapp.models import CustomUser
 
 
@@ -16,6 +16,7 @@ from authapp.models import CustomUser
 
 def show_404(request, exception=None):
     return render(request, 'authapp/404.html')
+
 
 def index(request):
     return render(request, 'authapp/base.html')
@@ -44,6 +45,7 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('courseapp:course_list'))
 
+
 def registration(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -57,3 +59,12 @@ def registration(request):
     else:
         form = SignUpForm()
     return render(request, 'authapp/base.html', {'form': form})
+
+
+class CustomUserList(ListView):
+    model = CustomUser
+
+
+class CustomUserUpdate(UpdateView):
+    model = CustomUser
+    form_class = CustomUserUpdateForm

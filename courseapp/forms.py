@@ -33,6 +33,14 @@ class CourseUpdateForm(forms.ModelForm):
         model = Course
         fields = ('name', 'logo', 'date_created', 'short_description', 'content', 'courses', 'courses_time', 'duration', 'duration_time', 'cost')
 
+    def __init__(self, *args, **kwargs):
+        """
+        Обновление стилей формы под Bootstrap
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form form-control mb-3'})
+
 
 
 class SiteEventsAddForm(forms.ModelForm):
@@ -41,9 +49,25 @@ class SiteEventsAddForm(forms.ModelForm):
         model = SiteEvents
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        """
+        Обновление стилей формы под Bootstrap
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form form-control mb-3'})
+
 
 class SiteEventsUpdateForm(forms.ModelForm):
 
     class Meta:
         model = SiteEvents
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        """
+        Обновление стилей формы под Bootstrap
+        """
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'form form-control mb-3'})

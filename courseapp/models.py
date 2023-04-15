@@ -84,6 +84,9 @@ class RelatedCourse(models.Model):
                                     blank=True)
     to_course = models.ManyToManyField(Course, related_name='related_courses')
 
+    def get_absolute_url(self):
+        return reverse('courseapp:relation_settings_list')
+
 
 class CourseModule(BaseModule):
     class Meta:

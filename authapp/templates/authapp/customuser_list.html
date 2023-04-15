@@ -11,7 +11,7 @@
                 <div class="col-md-8">
                     <ul class="list-inline custom-breadcrumb">
                         <li class="list-inline-item"><a class="h2 text-primary font-secondary"
-                                                        href="{% url 'courseapp:course_list' %}">Our Courses</a></li>
+                                                        href="{% url 'authapp:users_list' %}">Users</a></li>
                     </ul>
                 </div>
             </div>
@@ -20,38 +20,26 @@
     <!-- courses -->
     <section class="section-sm">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="d-flex align-items-center section-title justify-content-between">
-                        <div class="col-12 col-lg-auto mb-3 mb-lg-0">
-                            <a href="{% url 'courseapp:events_add' %} "
-                               class="btn btn-danger btn-md font-weight-semibold btn-py-2 px-4">+
-                                Добавить событие </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- course list -->
             <div class="row justify-content-center">
                 <table class="table table-striped mb-0" id="datatable-ecommerce-list"
                        style="min-width: 750px;">
                     <thead>
                     <tr>
-                        <th width="20%">Наименование</th>
-                        <th width="30%">Описание</th>
-                        <th width="15%">Старт</th>
-                        <th width="15%">Стоп</th>
-                        <th width="20%">Связь</th>
+                        <th width="10%">ID</th>
+                        <th width="10%">ФИО</th>
+                        <th width="20%">Email</th>
+                        <th width="20%">Персонал</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in object_list %}
-                        <tr class="clickable-row" data-href="{% url 'courseapp:events_update' item.pk %}">
-                            <td>{{ item.title }}</td>
-                            <td>{{ item.description }}</td>
-                            <td>{{ item.start_time }}</td>
-                            <td>{{ item.end_time }}</td>
-                            <td>{{ item.content_object }}</td>
+                        <tr class="clickable-row" data-href="{% url 'authapp:users_update' item.pk %}">
+                            <td>{{ item.pk }}</td>
+                            <td>{{ item }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.superintendent }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

@@ -47,12 +47,14 @@ def get_google_form(pattern):
         return pattern.group(0)
     return url
 
+
 def get_audio_file(pattern):
     try:
         url = f'<audio controls="controls" crossorigin="anonymous" style="width:100%;" controlsList="nodownload"><source src="/media/{pattern.group(0)}" type="audio/mpeg"></audio>'
     except Exception as _ex:
         return pattern.group(0)
     return url
+
 
 class CourseItem(DetailView):
     model = Course
@@ -79,9 +81,14 @@ class CourseUpdate(UpdateView):
     form_class = CourseUpdateForm
 
 
+class SiteEventsList(ListView):
+    model = SiteEvents
+
+
 class SiteEventsSettingsList(ListView):
     model = SiteEvents
     template_name = 'courseapp/siteevents_settings_list.html'
+
 
 class SiteEventsItem(DetailView):
     model = SiteEvents
@@ -95,3 +102,8 @@ class SiteEventsAdd(CreateView):
 class SiteEventsUpdate(UpdateView):
     model = SiteEvents
     form_class = SiteEventsUpdateForm
+
+
+class RelationSettingsList(ListView):
+    model = RelatedCourse
+

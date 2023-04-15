@@ -16,8 +16,13 @@ class UserLoginForm(AuthenticationForm):
             field.widget.attrs['class'] = 'form-control py-2'
 
 
-
 class SignUpForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class CustomUserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = '__all__'

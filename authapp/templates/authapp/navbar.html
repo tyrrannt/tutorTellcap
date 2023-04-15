@@ -11,14 +11,14 @@
 
             <div class="collapse navbar-collapse" id="navigation">
                 <ul class="navbar-nav ml-auto text-center">
-                    <li class="nav-item active">
+                    <li class="nav-item {% if request.path == '/' %}active{% endif %}">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li class="nav-item @@courses">
+                    <li class="nav-item @@courses {% if request.path == '/courses/list/' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'courseapp:course_list' %}">COURSES</a>
                     </li>
-                    <li class="nav-item @@events">
-                        <a class="nav-link" href="#">EVENTS</a>
+                    <li class="nav-item @@events {% if request.path == '/courses/events-list/' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'courseapp:events_list' %}">EVENTS</a>
                     </li>
                     <li class="nav-item @@contact">
                         <a class="nav-link" href="#">CONTACT</a>
@@ -48,9 +48,9 @@
                                 Настройки
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Users</a>
+                                <a class="dropdown-item" href="{% url 'authapp:users_list' %}">Users</a>
                                 <a class="dropdown-item" href="{% url 'courseapp:course_settings_list' %}">Course</a>
-                                <a class="dropdown-item" href="#">Relation</a>
+                                <a class="dropdown-item" href="{% url 'courseapp:relation_settings_list' %}">Relation</a>
                                 <a class="dropdown-item" href="{% url 'courseapp:events_settings_list' %}">Events</a>
                                 <a class="dropdown-item" href="#">Unit</a>
                             </div>
